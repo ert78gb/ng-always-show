@@ -1,6 +1,6 @@
 {
   "name": "ng-always-show",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Angular 4 directive that always visible a component in the web page when document scrolling",
   "keywords": [
     "Angular",
