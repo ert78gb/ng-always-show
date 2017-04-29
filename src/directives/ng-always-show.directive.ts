@@ -15,7 +15,8 @@ export class AlwaysShowDirective implements AfterViewChecked {
   private _edgePanelTop: number;
   private _glue: number | null = null;
 
-  constructor( @Inject(DOCUMENT) private _document: Document,
+  // TODO: Change the any type to Document when fix https://github.com/angular/angular/issues/15640
+  constructor( @Inject(DOCUMENT) private _document: any,
     private _el: ElementRef,
     private _renderer: Renderer2) {
   }
