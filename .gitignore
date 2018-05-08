@@ -17,6 +17,7 @@
 *.launch
 .settings/
 *.sublime-workspace
+ng-always-show.iml
 
 # IDE - VSCode
 .vscode/*
