@@ -1,8 +1,6 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 
-import {AlwaysShowDirective} from './directives/ng-always-show.directive';
-
-export * from './directives/ng-always-show.directive';
+import { AlwaysShowDirective } from './directives/ng-always-show.directive';
 
 @NgModule({
   declarations: [AlwaysShowDirective],

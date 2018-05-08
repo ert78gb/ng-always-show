@@ -4,7 +4,8 @@
 /build
 /tmp
 /dist
-
+.ng_pkg_build/
+dist.tgz
 
 # dependencies
 /node_modules
