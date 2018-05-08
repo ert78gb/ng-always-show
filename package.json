@@ -1,28 +1,48 @@
 {
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "ng-always-show",
-  "version": "1.0.0",
-  "description": "Angular 4 directive the element is always visible on page when document scrolling",
+  "version": "1.0.2",
+  "scripts": {
+    "build": "ng-packagr -p package.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "description": "Angular directive the element is always visible on page when document scrolling",
   "dependencies": {},
   "devDependencies": {
-    "@angular/common": "^4.0.3",
-    "@angular/compiler": "^4.0.3",
-    "@angular/compiler-cli": "^4.0.3",
-    "@angular/core": "^4.0.3",
-    "@angular/platform-browser": "^4.0.3",
+    "@angular/common": "^6.0.0",
+    "@angular/compiler": "^6.0.0",
+    "@angular/compiler-cli": "^6.0.0",
+    "@angular/core": "^6.0.0",
+    "@angular/platform-browser": "^6.0.0",
     "ng-html-util": "^1.0.0",
-    "rollup": "^0.41.6",
-    "rxjs": "^5.3.0",
-    "typescript": "^2.3.0",
-    "zone.js": "^0.8.5"
+    "ng-packagr": "^2.4.4",
+    "rxjs": "^6.1.0",
+    "typescript": "2.7.2",
+    "zone.js": "^0.8.26"
   },
-  "peerDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "ngPackage": {
+    "lib": {
+      "entryFile": "public_api.ts",
+      "languageLevel": [
+        "dom"
+      ]
+    },
+    "dest": "./dist"
+  },
+  "peerDependencies": {
+    "@angular/core": "5.0.0 || ^6.0.0",
+    "@angular/common": "5.0.0 || ^6.0.0",
+    "@angular/platform-browser": "5.0.0 || ^6.0.0",
+    "rxjs": "^6.1.0",
+    "zone.js": "^0.8.26"
   },
   "author": "Robert Kiss <ert78gb@gmil.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ert78gb/ng-always-show.git"
+  },
+  "directories": {
+    "lib": "./dist"
   }
 }
