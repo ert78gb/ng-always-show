@@ -1,7 +1,7 @@
 import { AfterViewChecked, Directive, ElementRef, HostListener, Inject, Renderer2, Input } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
-import { convertNumberToPx, convertPxToNumber, extractElementPosition} from 'ng-html-util';
+import { convertNumberToPx, convertPxToNumber, extractElementPosition } from 'ng-html-util';
 
 @Directive({
   selector: '[always-show]'
@@ -14,11 +14,12 @@ export class AlwaysShowDirective implements AfterViewChecked {
   private _top: number | null = null;
   private _edgePanelTop: number;
   private _glue: number | null = null;
+  private _placeHolderElementId: string;
 
   // TODO: Change the any type to Document when fix https://github.com/angular/angular/issues/15640
-  constructor( @Inject(DOCUMENT) private _document: any,
-    private _el: ElementRef,
-    private _renderer: Renderer2) {
+  constructor(@Inject(DOCUMENT) private _document: any,
+              private _el: ElementRef,
+              private _renderer: Renderer2) {
   }
 
   ngAfterViewChecked(): void {
@@ -37,6 +38,8 @@ export class AlwaysShowDirective implements AfterViewChecked {
    * @default 25
    */
   @Input() topOffset: number = 25;
+  @Input() addPlaceholder = true;
+  @Input() zindex = 1031;
 
   @HostListener("window:scroll", [])
   onWindowScroll() {
@@ -114,7 +117,8 @@ export class AlwaysShowDirective implements AfterViewChecked {
       this._allignToParentWidth();
       this._el.nativeElement.style.position = 'fixed';
       this._el.nativeElement.style.top = convertNumberToPx(this.topOffset);
-
+      this._el.nativeElement.style.zIndex = this.zindex;
+      this.addPlaceholderElement();
     }
     else if (this._navIsFixed && scrollPos < this._top &&
       (!this.edgeElement || scrollPos < this._edgePanelTop)) {
@@ -122,11 +126,37 @@ export class AlwaysShowDirective implements AfterViewChecked {
       this._el.nativeElement.style.position = 'static';
       this._el.nativeElement.style.top = '';
       this._el.nativeElement.style.width = '';
+      this.removePlaceholderElement();
     }
     else if (this.edgeElement && scrollPos > this._edgePanelTop) {
       this._el.nativeElement.style.position = 'absolute';
       this._el.nativeElement.style.top = convertNumberToPx(this._edgePanelTop - this._top);
       this._navIsFixed = false;
     }
+  }
+
+  private addPlaceholderElement(): void {
+    if (!this.addPlaceholder)
+      return;
+
+    const document: Document = this._document;
+    const elementHeight = this._document.defaultView.getComputedStyle(this._el.nativeElement).height;
+    this._placeHolderElementId = 'always-show-placeholder' + Date.now() + Math.floor(Math.random() * 1000);
+
+    const div = document.createElement('div');
+    div.id = this._placeHolderElementId;
+    div.style.height = elementHeight;
+    this._el.nativeElement.parentElement.insertBefore(div, this._el.nativeElement);
+  }
+
+  private removePlaceholderElement(): void {
+    if (!this._placeHolderElementId)
+      return;
+
+    const div = this._document.getElementById(this._placeHolderElementId);
+    if (!div)
+      return;
+
+    div.remove();
   }
 }
