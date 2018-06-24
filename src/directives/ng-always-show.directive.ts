@@ -157,6 +157,9 @@ export class AlwaysShowDirective implements AfterViewChecked {
     if (!div)
       return;
 
-    div.remove();
+    if(div.remove)
+      div.remove();
+    else
+      this._el.nativeElement.parentElement.removeChild(div);
   }
 }
