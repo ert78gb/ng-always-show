@@ -16,7 +16,7 @@
     "@angular/compiler-cli": "^8.2.4",
     "@angular/core": "^8.2.4",
     "@angular/platform-browser": "^8.2.4",
-    "ng-packagr": "^5.5.0",
+    "ng-packagr": "^10.1.1",
     "rxjs": "^6.5.2",
     "typescript": "3.6.2",
     "zone.js": "^0.10.2"
